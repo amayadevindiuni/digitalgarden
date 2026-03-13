@@ -1,6 +1,36 @@
 ---
-{"dg-publish":true,"permalink":"/ba/week-3-basic-probability/","title":"Basic Probability - 1","created":"2026-02-06T19:04:13.450+05:30","updated":"2026-02-16T06:35:34.966+05:30"}
+{"dg-publish":true,"permalink":"/ba/week-3-basic-probability/","title":"Basic Probability - 1","created":"2026-02-06T19:04:13.450+05:30","updated":"2026-03-04T22:04:21.439+05:30"}
 ---
+
+# week 3
+- [[#What is Probability?]]
+- [[#Comparison of Probability Types]]
+- [[#Formula]]
+- [[#Key definitions]]
+- [[#Venn Diagrams & Set Notations]]
+	- [[#Set Notations]]
+		- [[#Basic Set Symbols]]
+		- [[#Set Operations, Formulas and Venn Diagrams]]
+			- [[#1. Intersection]]
+			- [[#2. Union]]
+			- [[#3. Complement]]
+			- [[#4. Only A]]
+			- [[#5.Symmetric Difference]]
+			- [[#6.Neither]]
+- [[#Probability Types]]
+	- [[#1. Simple (Marginal) Probability]]
+	- [[#2. Joint Probability]]
+	- [[#3. Marginal Probability (Using Joint Probabilities)]]
+- [[#Important Concepts]]
+	- [[#Mutually Exclusive Events]]
+	- [[#Collectively Exhaustive Events]]
+	- [[#Mutually Exclusive AND Collectively Exhaustive]]
+- [[#Conditional Probability]]
+- [[#Decision Tree]]
+- [[#Bayes’ Theorem]]
+- [[#Counting Rules]]
+- [[#Permutations vs. Combinations]]
+- [[#Summary]]
 
 # What is Probability?
 
@@ -733,7 +763,9 @@ $$
 $$
 
 ## Counting rule 4 - Permutations
-
+$$
+_nP_r/P(n,r)/^nP_r
+$$
 **Number of ways to arrange $x$ objects from $n$ objects in order**:
 
 $$_nP_r = \frac{n!}{(n-r)!}$$
@@ -747,7 +779,66 @@ $\boxed{Example}$
 
 $$_6P_4 = \frac{6!}{(6-4)!} = \frac{6!}{2!} = \frac{6\times5\times4\times3\times2\times1}{2\times1} = 360$$
 
+**Permutations with Repeated Elements**
+
+$$\frac{n!}{n_1! \times n_2! \times \cdots \times n_k!}$$
+
+Where
+- $n$ - Total number of items
+- $n_1,n_2...n_k$ - count of each repeated element
+
+$\boxed{Example}$
+
+How many ways can you arrange the letters of **"MISSISSIPPI"**?
+
+- n = 11 (total letters)
+- I repeats 4 times → n₁ = 4
+- S repeats 4 times → n₂ = 4
+- P repeats 2 times → n₃ = 2
+- M appears once → n₄ = 1
+
+$$\frac{11!}{4! \times 4! \times 2! \times 1!} = \frac{39,916,800}{24 \times 24 \times 2 \times 1} = \frac{39,916,800}{1,152} = 34,650$$
+
+✅ **34,650 distinct arrangements**
+
+**Block / Gluing Method**
+
+$$\frac{(\text{total units})!}{\text{repeated factorials}} \times (\text{internal block arrangements})$$
+
+Where
+
+|Symbol|Meaning|
+|---|---|
+|**total units**|Number of items after gluing the block into one unit|
+|**repeated factorials**|Factorials of any repeated elements among the units|
+|**internal block arrangements**|Number of ways to arrange the letters inside the block|
+
+$\boxed{Example}$
+
+How many arrangements of **"MISSISSIPPI"** have all four S's together?
+
+**Step 1:** Glue SSSS into one block. Units become:
+
+```
+[SSSS], M, I, I, I, I, P, P  →  8 units total
+```
+
+**Step 2:** Arrange the 8 units (I repeats 4 times, P repeats 2 times):
+
+$$\frac{8!}{4! \times 2!} = \frac{40,320}{48} = 840$$
+
+**Step 3:** SSSS is all identical so internal arrangements = 1
+
+$$840 \times 1 = 840$$
+
+✅ **840 arrangements have all four S's together**
+
+> **Note:** If the block contained 4 _different_ letters (e.g. ABCD), the internal arrangements would be 4! = 24, giving 840 × 24 = **20,160**
+
 ## Counting Rule 5 - Combinations
+$$
+_nC_r/(^n_r)/^nC_r
+$$
 
 **Number of ways to arrange $x$ objects from $n$ objects , order does not matter**:
 
@@ -772,6 +863,156 @@ $$_6C_4 = \frac{6!}{4!(6-4)!} = \frac{6!}{4! \cdot 2!} = \frac{6\times5}{2\times
 ![](https://i.postimg.cc/0jJX4ky6/image.png)
 ![](https://i.postimg.cc/sDYMMMz7/image.png)
 ![](https://i.postimg.cc/mgVhSKhv/image.png)
+
+**Q1: How many letters are in the word "Mississippi"?**
+
+Write it out and count:
+
+```
+M - I - S - S - I - S - S - I - P - P - I
+1   2   3   4   5   6   7   8   9  10  11
+```
+
+✅ **11 letters total**
+
+---
+
+**Q2: How many of each letter appear in "Mississippi"?**
+
+Go through the word carefully:
+
+```
+M → 1
+I → 4  (positions 2, 5, 8, 11)
+S → 4  (positions 3, 4, 6, 7)
+P → 2  (positions 9, 10)
+```
+
+✅ **M=1, I=4, S=4, P=2**
+
+---
+
+**Q3: How many distinct ways can you arrange all 11 letters of "Mississippi"?**
+
+**Step 1:** Total letters = 11, so start with 11!
+
+$$11! = 39,916,800$$
+
+**Step 2:** Divide by the factorial of each repeated letter:
+
+- I appears 4 times → 4! = 24
+- S appears 4 times → 4! = 24
+- P appears 2 times → 2! = 2
+- M appears 1 time → 1! = 1
+
+**Step 3:** Plug into the formula:
+
+$$\frac{11!}{4! \times 4! \times 2! \times 1!} = \frac{39,916,800}{24 \times 24 \times 2 \times 1} = \frac{39,916,800}{1,152}$$
+
+**Step 4:** Divide:
+
+$$39,916,800 \div 1,152 = 34,650$$
+
+✅ **34,650 distinct arrangements**
+
+---
+
+**Q4: Of those arrangements, how many begin with the letter I?**
+
+**Step 1:** Fix one I in the first position. That uses 1 of the 4 I's.
+
+**Step 2:** Remaining 10 letters are: M=1, I=3, S=4, P=2
+
+**Step 3:** Apply the formula:
+
+$$\frac{10!}{1! \times 3! \times 4! \times 2!}$$
+
+**Step 4:** Calculate:
+
+$$10! = 3,628,800$$
+
+$$\text{Denominator} = 1 \times 6 \times 24 \times 2 = 288$$
+
+**Step 5:** Divide:
+
+$$3,628,800 \div 288 = 12,600$$
+
+✅ **12,600 arrangements begin with I**
+
+---
+
+**Q5: How many arrangements have all four S's grouped together as a block?**
+
+**Step 1:** Treat SSSS as one block. Now you have 8 units:
+
+```
+[SSSS], M, I, I, I, I, P, P
+```
+
+**Step 2:** Apply the formula for these 8 units (I repeats 4 times, P repeats 2 times):
+
+$$\frac{8!}{4! \times 2!} = \frac{40,320}{24 \times 2} = \frac{40,320}{48} = 840$$
+
+**Step 3:** The SSSS block is all identical letters, so internal arrangements = 1.
+
+$$840 \times 1 = 840$$
+
+✅ **840 arrangements have all four S's together**
+
+---
+
+**Q6: Now replace the 4 S's with 4 different letters A, B, C, D. How many arrangements of "MABCDIIPPI" have A, B, C, D all together as a block?**
+
+The word is now: M, A, B, C, D, I, I, I, I, P, P (11 letters)
+
+**Step 1:** Treat [ABCD] as one block. Now you have 8 units:
+
+```
+[ABCD], M, I, I, I, I, P, P
+```
+
+**Step 2:** Arrange the 8 units (same repeated letters as before):
+
+$$\frac{8!}{4! \times 2!} = \frac{40,320}{48} = 840$$
+
+**Step 3:** Unlike SSSS, the block [ABCD] has 4 different letters so every internal order is unique:
+
+$$4! = 24 \text{ ways}$$
+
+**Step 4:** Multiply:
+
+$$840 \times 24 = 20,160$$
+
+✅ **20,160 arrangements have A, B, C, D all together as a block**
+
+|Block|Internal Arrangements|Final Answer|
+|---|---|---|
+|SSSS (all same)|1|**840**|
+|ABCD (all different)|4! = 24|**20,160**|
+
+---
+
+**Q7: How many arrangements of "Mississippi" have no two I's next to each other?**
+
+**Step 1:** First arrange the 7 non-I letters: M, S, S, S, S, P, P
+
+$$\frac{7!}{4! \times 2!} = \frac{5040}{48} = 105 \text{ arrangements}$$
+
+**Step 2:** In any row of 7 letters there are 8 gaps (including the ends):
+
+```
+_ L _ L _ L _ L _ L _ L _ L _
+```
+
+**Step 3:** Choose 4 of these 8 gaps to place the I's (all I's are identical so order doesn't matter):
+
+$$\binom{8}{4} = \frac{8!}{4! \times 4!} = 70$$
+
+**Step 4:** Multiply:
+
+$$105 \times 70 = 7,350$$
+
+✅ **7,350 arrangements have no two I's adjacent**
 
 # Summary
 
